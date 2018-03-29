@@ -18,5 +18,13 @@ skynet.start(function()
 		nodelay = true,
 	})
 	skynet.error("Watchdog listen on", 8888)
+
+	local service_pub = skynet.newservice("multicastpub")
+	local channelId = skynet.call(service_pub , "lua" , "GetChannelId")
+	print("channelId",channelId)
+	skynet.newservice("multicastsub" , channelId)
+	skynet.newservice("multicastsub" , channelId)
+	skynet.newservice("multicastsub" , channelId)
+
 	skynet.exit()
 end)

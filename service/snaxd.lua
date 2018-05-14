@@ -11,6 +11,13 @@ local func, pattern = snax_interface(snax_name, _ENV, loader)
 local snax_path = pattern:sub(1,pattern:find("?", 1, true)-1) .. snax_name ..  "/"
 package.path = snax_path .. "?.lua;" .. package.path
 
+local Util = require "Util"
+Util.print_lua_table(func)
+print("snaxd---")
+
+
+print("package.path", package.path)
+
 SERVICE_NAME = snax_name
 SERVICE_PATH = snax_path
 

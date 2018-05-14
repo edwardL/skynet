@@ -7,7 +7,7 @@ local typeclass = {}
 local interface_g = skynet.getenv("snax_interface_g")
 local G = interface_g and require (interface_g) or { require = function() end }
 interface_g = nil
-
+local Util = require "Util"
 skynet.register_protocol {
 	name = "snax",
 	id = skynet.PTYPE_SNAX,
@@ -22,6 +22,9 @@ function snax.interface(name)
 	end
 
 	local si = snax_interface(name, G)
+
+	Util.print_lua_table(si)
+	print("in ---- snax.interface")
 
 	local ret = {
 		name = name,
@@ -71,6 +74,7 @@ local function gen_req(type, handle)
 end
 
 local function wrapper(handle, name, type)
+	print("-------handle, name, type" , handle, name, type)
 	return setmetatable ({
 		post = gen_post(type, handle),
 		req = gen_req(type, handle),
@@ -83,8 +87,11 @@ local handle_cache = setmetatable( {} , { __mode = "kv" } )
 
 function snax.rawnewservice(name, ...)
 	local t = snax.interface(name)
+	print("in rawnew service")
+	Util.print_lua_table(t)
 	local handle = skynet.newservice("snaxd", name)
 	assert(handle_cache[handle] == nil)
+	print("rawnewservice", t.system.init)
 	if t.system.init then
 		skynet.call(handle, "snax", t.system.init, ...)
 	end

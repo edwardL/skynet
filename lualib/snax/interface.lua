@@ -1,5 +1,5 @@
 local skynet = require "skynet"
-
+local Util = require "Util"
 local function dft_loader(path, name, G)
     local errlist = {}
 
@@ -78,7 +78,10 @@ return function (name , G, loader)
 	local pattern
 
         local path = assert(skynet.getenv "snax" , "please set snax in config file")
-        mainfunc, pattern = loader(path, name, G)
+		mainfunc, pattern = loader(path, name, G)
+		
+		print("mainfunc", mainfunc ,pattern)
+		-- Util.print_lua_table(mainfunc)
 
 	setmetatable(G,	{ __index = env , __newindex = init_system })
 	local ok, err = xpcall(mainfunc, debug.traceback)

@@ -9,6 +9,7 @@
 #include "skynet_socket.h"
 #include "skynet_daemon.h"
 #include "skynet_harbor.h"
+#include "skynet_test.h"
 
 #include <pthread.h>
 #include <unistd.h>
@@ -150,6 +151,16 @@ thread_timer(void *p) {
 }
 
 static void *
+thread_test(void *p) {
+	for(;;) {
+		skynet_updatetest();
+		usleep(2500);
+
+	}
+	return NULL;
+}
+
+static void *
 thread_worker(void *p) {
 	struct worker_parm *wp = p;
 	int id = wp->id;
@@ -180,7 +191,7 @@ thread_worker(void *p) {
 
 static void
 start(int thread) {
-	pthread_t pid[thread+3];
+	pthread_t pid[thread+4];
 
 	struct monitor *m = skynet_malloc(sizeof(*m));
 	memset(m, 0, sizeof(*m));
@@ -204,6 +215,8 @@ start(int thread) {
 	create_thread(&pid[0], thread_monitor, m);
 	create_thread(&pid[1], thread_timer, m);
 	create_thread(&pid[2], thread_socket, m);
+
+	create_thread(&pid[3], thread_test, m);
 
 	static int weight[] = { 
 		-1, -1, -1, -1, 0, 0, 0, 0,

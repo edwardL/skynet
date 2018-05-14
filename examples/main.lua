@@ -1,6 +1,6 @@
 local skynet = require "skynet"
 local sprotoloader = require "sprotoloader"
-
+local Object = require "Object"
 local max_client = 64
 
 skynet.start(function()
@@ -25,6 +25,9 @@ skynet.start(function()
 	skynet.newservice("multicastsub" , channelId)
 	skynet.newservice("multicastsub" , channelId)
 	skynet.newservice("multicastsub" , channelId)
+
+	local object = Object.New()
+	print("object",object)
 
 	skynet.exit()
 end)

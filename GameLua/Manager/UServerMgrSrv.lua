@@ -19,7 +19,7 @@ function accept.HelloWorld111(...)
 end
 
 local function LoadAndInitServer()
-    local path = skynet.getenv("root") .. "Common.json")
+    local path = skynet.getenv("root") .. "Common.json"
 
     local configFileFD = io.open(path)
     if not configFileFD then
@@ -32,6 +32,6 @@ local function LoadAndInitServer()
 
 end
 
-function reponse.LoadAndInitServer()
+function response.LoadAndInitServer()
     return LoadAndInitServer()
 end

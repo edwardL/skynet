@@ -66,5 +66,5 @@ gettime() {
 void
 skynet_updatetest(void) {
     uint64_t cp = gettime();
-    printf('%lld cp' , cp);
+    // printf("%lu\n",cp);
 }

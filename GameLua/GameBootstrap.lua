@@ -3,6 +3,15 @@ local snax = require "skynet.snax"
 local Util = require "Util"
 local GameObject = require "GameObject"
 
+local function LOG_INFO(fmt, ...)
+	local msg = string.format(fmt, ...)
+	local info = debug.getinfo(2)
+	if info then
+		msg = string.format("[%s:%d] %s", info.short_src, info.currentline, msg)
+	end
+	skynet.send("log", "lua", "info", SERVICE_NAME, msg)
+end
+
 skynet.start(function()
     print("helloworld")
 
@@ -14,4 +23,14 @@ skynet.start(function()
     uServerMgrSrv.req.HelloWorld("edward")
 
     local gameObject = GameObject.New()
+
+    ---
+    local redispool = skynet.uniqueservice("redispool")
+    skynet.call(redispool,"lua","start")
+
+    local log = skynet.uniqueservice("log")
+    skynet.call(log,"lua","start")
+
+    LOG_INFO("helloworld")
+
 end)

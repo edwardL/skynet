@@ -1,11 +1,11 @@
 root = "./"
-luaservice = root.."service/?.lua;"..root.."test/?.lua;"..root.."examples/?.lua;"..root.."test/?/init.lua;" .. root .. "GameLua/?.lua;" .. root .. "GameLua/Manager/?.lua"
+luaservice = root.."service/?.lua;"..root.."test/?.lua;"..root.."examples/?.lua;"..root.."test/?/init.lua;" .. root .. "GameLua/?.lua;" .. root .. "GameLua/common/?.lua;" .. root .. "GameLua/Manager/?.lua"
 lualoader = root .. "lualib/loader.lua"
 lua_path = root.."lualib/?.lua;"..root.."lualib/?/init.lua;" .. root .. "GameLua/?.lua"
 lua_cpath = root .. "luaclib/?.so"
 snax = root.."examples/?.lua;"..root.."test/?.lua;" .. root .. "GameLua/Manager/?.lua"
 
--- preload = "./examples/preload.lua"	-- run preload.lua before every lua service run
+preload = "./examples/preload.lua"	-- run preload.lua before every lua service run
 thread = 8
 logger = nil
 logpath = "."
@@ -21,3 +21,10 @@ cpath = root.."cservice/?.so"
 
 --- debug consume
 debug_console_port = 8000
+
+-- redis
+
+redis_maxinst = 1
+redis_host1 = "127.0.0.1"
+redis_port1 = 6379
+redis_auth1 = "123456"

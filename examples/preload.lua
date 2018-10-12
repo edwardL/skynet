@@ -2,4 +2,4 @@
 -- See config
 
 print("PRELOAD", ...)
-
+--require "luaext"
